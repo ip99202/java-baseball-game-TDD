@@ -31,4 +31,5 @@ public class BallTest {
         BallStatus status = computer.play(new Ball(2, 3));
         assertThat(status).isEqualTo(BallStatus.NOTHING);
     }
+
 }
