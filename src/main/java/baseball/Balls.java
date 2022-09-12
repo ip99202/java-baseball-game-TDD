@@ -2,13 +2,12 @@ package baseball;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Balls {
-    private final List<Ball> balls;
+    private final List<Ball> answers;
 
     public Balls(List<Integer> answers) {
-        this.balls = getBalls(answers);
+        this.answers = getBalls(answers);
     }
 
     private List<Ball> getBalls(List<Integer> answers) {
@@ -20,11 +19,20 @@ public class Balls {
     }
 
     public BallStatus play(Ball ball) {
-        return balls.stream()
+        return answers.stream()
                 .map(answer -> answer.play(ball))
-                .filter(status -> status != BallStatus.NOTHING)
+                .filter(status -> !status.isNothing())
                 .findFirst()
                 .orElse(BallStatus.NOTHING);
     }
 
+    public PlayResult play(List<Integer> balls) {
+        Balls userBall = new Balls(balls);
+        PlayResult playResult = new PlayResult();
+        for (Ball answer : answers) {
+            BallStatus status = userBall.play(answer);
+            playResult.report(status);
+        }
+        return playResult;
+    }
 }
