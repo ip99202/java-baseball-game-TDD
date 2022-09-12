@@ -9,6 +9,9 @@ public class Ball {
 
     public Ball(int index, int ballNum) {
         this.index = index;
+        if (!ValidateUtils.validNum(ballNum)) {
+            throw new IllegalArgumentException("숫자의 값은 1부터 9 사이어야 합니다.");
+        }
         this.ballNum = ballNum;
     }
 
